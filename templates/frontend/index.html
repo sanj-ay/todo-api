@@ -1,0 +1,81 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" href="{% static 'frontend/styles.css' %}">
+        <title>To Do</title>
+        
+    </head>
+
+    <body>
+        <div id='main-container'>
+            <div id='sub-container0'>
+                <p>To Do List</p>
+            </div>
+           
+            <form class='sub-container1' method="POST" role="form">
+                <input type="text" placeholder="Add task">
+                <button class="button submit-button" type="submit" >+</button>
+            </form>  
+            
+            <div class='sub-container2'>
+                
+                <a href="#"><button type="button ">-</button></a>
+                <a href="#"><button type="button" >Clear</button></a>
+               
+            </div>
+
+            <div id='sub-container3'>
+                
+                   
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+
+            buildList()
+
+            function buildList() {
+
+                var wrapper=document.getElementById('sub-container3')
+
+                var url= 'http://127.0.0.1:8000/api/task-list'
+
+
+                fetch(url)
+                .then((resp)=>resp.json())
+                .then(function(data){
+                    console.log('Data:',data)
+
+                    var list=data
+                    for (var i in list) {
+                        
+                        var item = ` 
+                        <div id='sub-container4'>
+                            <span class="text">${list[i].text}</span>
+                            <button class="individual-1">Edit</button>
+                            <button class="individual-2">-</button>
+                            
+                            `
+                            
+                            
+
+
+
+
+                        
+                        wrapper.innerHTML +=item
+                    }
+ 
+                })
+            }
+
+
+
+
+        </script>
+
+    </body>
+</html>
