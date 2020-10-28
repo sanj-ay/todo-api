@@ -14,7 +14,6 @@ def apiOverview(request):
         'Delete':'/delete-task/<str:pk>',
         'Clear':'/clearall',
     }
-
     return Response(api_urls)
 
 @api_view(['GET'])
@@ -29,18 +28,33 @@ def createTask(request):
     serializer=taskSerializer(data=request.data)
     if serializer.is_valid() :
         serializer.save()
-    return Response(request.data)
+    return Response(serializer.data)
+
+
+@api_view(['POST'])
+def updateTask(request,pk):
+    task=Task.objects.get(id=pk)
+    serializer=taskSerializer(instance=task,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
 
 @api_view(['DELETE'])
 def deleteTask(request,pk):
     task=Task.objects.get(id=pk)
     task.delete()
-    
     return Response('Item succsesfully deleted!')
+
+
+@api_view(['DELETE'])
+def removeCompleted(request):
+    Task.objects.filter(completed__exact=True).delete()
+    return Response("Updated List")
+
+
 
 @api_view(['DELETE'])
 def clearAll(request):
     tasks=Task.objects.all()
     tasks.delete()
-
     return Response(" List Cleared Successfully")
