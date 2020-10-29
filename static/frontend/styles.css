@@ -87,8 +87,8 @@ html{
     margin-top: 8px;
     background-color: rgba(0,0,0,0.0);
     flex-direction: row;
-    align-items: center;
-    justify-content: space-evenly
+    align-items:center;
+    justify-content: space-evenly;
 
     
    
@@ -133,6 +133,7 @@ button{
     background-color:rgba(0,0,0,0.0);
     margin: 4px;
     font-size: 30px;
+    align-items: center;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 
 
